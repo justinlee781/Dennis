@@ -4,6 +4,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     Alert,
+    ImageBackground,
 } from "react-native";
 import Theme from "../../src/Theme";
 import IconHeader from "../../components/Headers/IconHeader";
@@ -12,11 +13,9 @@ import Space from "../../components/utils/Space";
 import InputBox from "../../components/utils/InputBox";
 import FullButton from "../../components/Buttons/FullButton";
 import LoadingView from "../../components/utils/LoadingView";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStore from "../../store/index";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { AUTH, dbFS } from "../../config/firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
 
 
 function SignupScreen({navigation}){
@@ -61,7 +60,9 @@ function SignupScreen({navigation}){
 
 
     return (
-      <View style={styles.container}>
+      <ImageBackground
+      source={require("../../assets/images/signupbg.jpg")}
+      style={styles.container}>
         <IconHeader
           handleLeftIconPress={() => navigation.goBack()}
           leftIcon={true}
@@ -122,7 +123,7 @@ function SignupScreen({navigation}){
           :
           null
         }
-      </View>
+      </ImageBackground>
     );}
 export default SignupScreen;
 

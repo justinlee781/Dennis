@@ -14,6 +14,7 @@ import { addDoc, arrayUnion, collection, doc, getDoc, onSnapshot, setDoc, update
 import { dbFS } from "../../config/firebase";
 import useStore from "../../store";
 import LoadingView from "../../components/utils/LoadingView";
+import LottieAnim from "../../components/LottieAnim";
 
 function MyAddressScreen({ navigation }) {
   const [savedAddresses, setSavedAddresses] = useState([]);
@@ -155,7 +156,6 @@ function MyAddressScreen({ navigation }) {
           </View>
         </View>
       </CurveView>
-
       <BottomSheet windowHeight={windowHeight / 1.1} sheetRef={addRef}>
         <View style={styles.wrapper}>
           <View>

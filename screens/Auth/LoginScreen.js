@@ -4,7 +4,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     Alert,
-    Pressable
+    Pressable,
+    ImageBackground
 } from "react-native";
 import Theme from "../../src/Theme";
 import IconHeader from "../../components/Headers/IconHeader";
@@ -89,7 +90,9 @@ function LoginScreen({navigation}){
 
 
     return (
-      <View style={styles.container}>
+      <ImageBackground
+      source={require("../../assets/images/loginbg.jpg")}
+      style={styles.container}>
         <IconHeader
           handleLeftIconPress={() => navigation.goBack()}
           leftIcon={true}
@@ -146,7 +149,7 @@ function LoginScreen({navigation}){
           :
           null
         }
-      </View>
+      </ImageBackground>
     );}
 export default LoginScreen;
 
