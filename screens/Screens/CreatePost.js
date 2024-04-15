@@ -11,8 +11,6 @@ import Typo from "../../components/utils/Typo";
 import * as ImagePicker from "expo-image-picker";
 import LineBar from "../../components/utils/LineBar";
 import FullButton from "../../components/Buttons/FullButton";
-import useStore from "../../store";
-import axios from "axios";
 
 const catData = [
   "Mobile Phone",
@@ -103,6 +101,7 @@ function CreatePost({ navigation }) {
   const [hasPhotos, setHasPhotos] = useState(false);
   const [images, setImages] = useState([]);
   const [adDescription, setadDescription] = useState(null);
+  const [dimensions, setDimensions] = useState(null);
   const [adTitle, setadTitle] = useState(null);
   const [adPrice, setadPrice] = useState(null);
   const [brand, setbrand] = useState(null);
@@ -163,7 +162,7 @@ function CreatePost({ navigation }) {
       return;
     }
 
-    if (!adTitle || !adDescription || !adPrice) {
+    if (!adTitle || !adDescription || !adPrice || !dimensions) {
       Alert.alert(
         "Incomplete Information",
         "Please fill in all the details for the listing."
@@ -221,9 +220,6 @@ function CreatePost({ navigation }) {
       postData,
     });
   };
-
-  const userData = useStore((state) => state.userData);
-
   return (
     <View style={styles.container}>
       <HeaderTwoIcons
@@ -267,6 +263,14 @@ function CreatePost({ navigation }) {
             placeholder={"Enter here"}
             value={adTitle}
             onChangeText={(t) => setadTitle(t)}
+          />
+          <Space space={15} />
+          <InputBox
+            leftIcon={"resize"}
+            label={"Product Dimensions"}
+            placeholder={"Eg : 27x28x21"}
+            value={dimensions}
+            onChangeText={(t) => setDimensions(t)}
           />
           <Space space={15} />
           <InputBox

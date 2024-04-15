@@ -1,11 +1,6 @@
 export default {
-    sliderimg1:require("./images/sliderimg1.png"),
-    sliderimg2:require("./images/sliderimg2.png"),
-    sliderimg3:require("./images/sliderimg3.png"),
     backIcon:require("./images/backIcon.png"),
     notification:require("./images/notification.png"),
-    avgirl:require("./images/avgirl.png"),
-    avboy:require("./images/avboy.png"),
     cat1:require("./images/categories/phone.jpg"),
     cat2:require("./images/categories/laptops.jpg"),
     cat3:require("./images/categories/watches.jpg"),

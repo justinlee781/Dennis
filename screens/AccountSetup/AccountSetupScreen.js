@@ -68,7 +68,7 @@ function AccountSetupScreen({ navigation, route }) {
                     await setDoc(userRef, {
                         email: email,
                         userRole: userRole,
-                        fullName: fullName,
+                        userName: fullName,
                         userID: userID
                     });
 

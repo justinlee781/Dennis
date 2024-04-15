@@ -11,7 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStore from "../store";
 import AccountSetupScreen from "../screens/AccountSetup/AccountSetupScreen";
 import Dashboard from "../screens/Screens/Dashboard";
-import Orders from "../screens/Screens/Orders";
 import Profile from "../screens/Screens/Profile";
 import PersonalInfoScreen from "../screens/common/PersonalInfoScreen";
 import CreatePost from "../screens/Screens/CreatePost";
@@ -24,13 +23,8 @@ import HandleCreateListing from "../screens/Screens/HandleCreateListing";
 import MyLikedItems from "../screens/Screens/MyLikedItems";
 import ChattingScreen from "../screens/Screens/ChattingScreen";
 import ConversationsScreen from "../screens/Screens/ConversationsScreen";
-import BecomeSeller from "../screens/Screens/BecomeSeller";
-import SellerSetup from "../screens/Screens/SellerSetup";
 import MyAddressScreen from "../screens/common/MyAddressScreen";
-import Web from "../screens/Screens/Web";
-import CreateAnOrder from "../screens/Screens/CreateAnOrder";
-import OrderConfirmation from "../screens/Screens/OrderConfirmation";
-import OrderDetails from "../screens/Screens/OrderDetails";
+import ForumsScreen from "../screens/Screens/ForumsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -111,13 +105,7 @@ export default function MyStack({ navigation }) {
           />
           <Stack.Screen name="MyLikedItems" component={MyLikedItems} />
           <Stack.Screen name="ChattingScreen" component={ChattingScreen} />
-          <Stack.Screen name="BecomeSeller" component={BecomeSeller} />
-          <Stack.Screen name="SellerSetup" component={SellerSetup} />
           <Stack.Screen name="MyAddressScreen" component={MyAddressScreen} />
-          <Stack.Screen name="WebView" component={Web} />
-          <Stack.Screen name="CreateAnOrder" component={CreateAnOrder} />
-          <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} />
-          <Stack.Screen name="OrderDetails" component={OrderDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -136,8 +124,8 @@ function MainRoute() {
             case "Dashboard":
               iconSource = "grid";
               break;
-            case "Orders":
-              iconSource = "package";
+            case "ForumsScreen":
+              iconSource = "home";
               break;
             case "Chat":
               iconSource = "message-circle";
@@ -162,8 +150,8 @@ function MainRoute() {
         tabBarLabel: () => null,
       })}
     >
+      <Tab.Screen name="ForumsScreen" component={ForumsScreen} />
       <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Orders" component={Orders} />
       <Tab.Screen
         name="Plus"
         component={LoadingNavigate}

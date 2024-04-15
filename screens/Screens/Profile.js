@@ -269,4 +269,4 @@ const styles = StyleSheet.create({
 });
 
 
-const placeholder = "https://cdn-icons-png.flaticon.com/128/236/236832.png"
+const placeholder = "https://cdn-icons-png.flaticon.com/128/2202/2202112.png"

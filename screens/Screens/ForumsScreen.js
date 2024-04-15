@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
-import { View,StyleSheet,  Pressable } from "react-native";
+import { View,StyleSheet } from "react-native";
 import CustomHeader from "../../components/Headers/CustomHeader";
 import Theme from "../../src/Theme";
 import CurveView from "../../components/utils/CurveView";
 import useStore from "../../store";
 import { doc, onSnapshot } from "firebase/firestore"; // Import necessary Firestore functions and objects
 import { dbFS } from "../../config/firebase";
-import InputBox from "../../components/utils/InputBox";
 import Space from "../../components/utils/Space";
-import { categories  } from "../../Data";
-import CategoryCard from "../../components/Cards/CategoryCard";
 
 
-
-function SPDashboard({ navigation }) {
+function ForumsScreen({ navigation }) {
     const userData = useStore((state) => state.userData);
     const setUserData = useStore((state) => state.setUserData);
     const userID = useStore((state) => state.userID);
@@ -48,23 +44,7 @@ function SPDashboard({ navigation }) {
 
       <Space space={15}/>
         <CurveView>
-          <View>
-            <View style={styles.categories}>
-            {categories && categories.map((category, index) => (
-              <Pressable
-                key={index}
-                onPress={() =>
-                  navigation.navigate("CategoryDetail", {
-                    item: category,
-                  })
-                }
-                style={{width:'48%',marginBottom:15,borderRadius:10,}}
-              >
-                <CategoryCard image={category.image} label={category.label} sublabel={category.sublabel}/>
-              </Pressable> 
-            ))}
-          </View>
-          </View>
+      
         </CurveView>
       </View>
     );
@@ -108,6 +88,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SPDashboard;
+export default ForumsScreen;
 
 const placeholder = "https://cdn-icons-png.flaticon.com/128/2202/2202112.png"

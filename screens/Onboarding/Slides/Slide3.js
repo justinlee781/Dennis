@@ -1,26 +1,32 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, ImageBackground, Animated, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import Theme from "../../src/Theme";
-import Typo from "../../components/utils/Typo";
-import Swiper from 'react-native-swiper'
-import Slide1 from "./Slides/Slide1";
-import Slide2 from "./Slides/Slide2";
-import Slide3 from "./Slides/Slide3";
+import Theme from "../../../src/Theme";
+import Typo from "../../../components/utils/Typo";
 
-function OnboardingScreen({ navigation }) {
+function Slide3({ navigation }) {
 
   return (
     <View style={styles.container}>
-    <Swiper loop={false} style={styles.wrapper} showsButtons={false} showsPagination={true} activeDotColor="white">
-       <Slide1 navigation={navigation}/>
-       <Slide2 navigation={navigation}/>
-       <Slide3 navigation={navigation}/>
-    </Swiper>
+      <ImageBackground
+        source={require("../../../assets/images/bg3.jpg")}
+        style={{ flex: 1 }}
+      >
+        <View style={[styles.textContainer]}>
+          <Typo style={styles.title}>Surfboard Exchange</Typo>
+          <Typo grey style={styles.subtitle}>Trade Your Board, Discover Treasures and much much more!</Typo>
+        </View>
+
+        <View style={[styles.buttonContainer]}>
+          <TouchableOpacity onPress={()=>navigation.navigate("LoginScreen")} style={styles.button}>
+            <AntDesign name="swapright" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
-export default OnboardingScreen;
+export default Slide3;
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +37,8 @@ const styles = StyleSheet.create({
     left: 20,
     top: '8%', // Adjust this value to bring the title down
     paddingRight:20,
-    textAlign:'left'
+    textAlign:'left',
+    maxWidth:400
   },
   
   title: {

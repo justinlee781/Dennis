@@ -16,7 +16,7 @@ function EnterDetails({fullName,setFullName,email,setEmail}){
   return (
     <>
       <Typo center xxl>
-       Enter Your Name
+       Enter Your Username
       </Typo>
       <Typo center grey>
         This will be displayed on your public profile.
@@ -26,7 +26,7 @@ function EnterDetails({fullName,setFullName,email,setEmail}){
         value={fullName}
         onChangeText={(text) => setFullName(text)}
         leftIcon={"person-circle-outline"}
-        placeholder={"Full Name"}
+        placeholder={"Username"}
       />
       {/* <Space space={15} />
       <InputBox

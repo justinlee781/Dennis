@@ -4,7 +4,6 @@ import MainRoute from "./route/index";
 import { useFonts } from "expo-font";
 import CustomView from "./components/utils/CustomView";
 import { StatusBar } from "expo-status-bar";
-import { StripeProvider } from "@stripe/stripe-react-native";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -21,12 +20,11 @@ export default function App() {
     );
   } else {
     return (
-      <StripeProvider publishableKey="pk_test_51OqvFPCdjKZhZCnHSAZ7JfZgHKdLeLRbB3ropLviFsxVkswSiTN22G0DKiOhjugyyTpOU3XDzTJAL0mJqG0a9DTj00kOF6eKSG">
+  
         <CustomView>
           <StatusBar style="auto" />
           <MainRoute />
         </CustomView>
-      </StripeProvider>
     );
   }
 }

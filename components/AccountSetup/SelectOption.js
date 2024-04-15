@@ -25,7 +25,7 @@ function SelectOption({option,handleSelectOption}){
                 option === "buyer" && styles.selectedCard,
               ]}
             >
-              <Image style={{height:35,width:35,resizeMode:'contain'}} source={{uri:"https://cdn-icons-png.flaticon.com/128/478/478045.png"}} />
+              <Image style={{height:45,width:45,resizeMode:'contain'}} source={{uri:"https://cdn-icons-png.flaticon.com/128/8174/8174616.png"}} />
               <Typo>Buy</Typo>
             </View>
           </TouchableWithoutFeedback>
@@ -39,7 +39,7 @@ function SelectOption({option,handleSelectOption}){
                 option === "seller" && styles.selectedCard,
               ]}
             >
-              <Image style={{height:35,width:35,resizeMode:'contain'}} source={{uri:"https://cdn-icons-png.flaticon.com/128/892/892930.png"}} />
+              <Image style={{height:45,width:45,resizeMode:'contain'}} source={{uri:"https://cdn-icons-png.flaticon.com/128/9883/9883117.png"}} />
               <Typo>Recycle</Typo>
             </View>
           </TouchableWithoutFeedback>
@@ -68,8 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.containerGrey,
   },
   selectedCard: {
-    borderColor: Theme.primaryColor,
     borderWidth: 2,
-    borderColor:Theme.blueColor
+    borderColor:Theme.primaryColor
   },
 });
