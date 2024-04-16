@@ -12,4 +12,9 @@ export default {
     sell:require("./images/sell.png"),
     congo:require("./images/congo.png"),
     orderconfirm:require("./images/orderconfirm.png"),
+    cookinaround:require("./images/categories/cookinaround.png"),
+    randomstuff:require("./images/categories/randomstuff.png"),
+    wsl:require("./images/categories/wsl.png"),
+    localspots:require("./images/categories/localspots.png"),
+    shape:require("./images/categories/shape.png"),
 }
