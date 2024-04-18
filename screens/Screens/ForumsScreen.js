@@ -9,6 +9,7 @@ import { dbFS } from "../../config/firebase";
 import Space from "../../components/utils/Space";
 import ForumCategoryCard from "../../components/Cards/ForumCategoryCard";
 import assets from "../../assets/assets";
+import ForumCategoryCardVertical from "../../components/Cards/FromCategoryCardVertical";
 
 
 const cardData = [
@@ -60,6 +61,7 @@ function ForumsScreen({ navigation }) {
   const userData = useStore((state) => state.userData);
   const setUserData = useStore((state) => state.setUserData);
   const userID = useStore((state) => state.userID);
+  const [isGridView, setIsGridView] = useState(true); // State to manage the toggle
 
 
   useEffect(() => {
@@ -83,25 +85,52 @@ function ForumsScreen({ navigation }) {
 
 
   function renderCards() {
-    return cardData.map((card) => (
-      <ForumCategoryCard
-        key={card.id}
-        buttonColor={card.buttonColor}
-        title={card.title}
-        subtitle={card.subtitle}
-        image={card.image}
-        data={card}
-        color={card.color}
-      />
-    ));
+    if (isGridView) {
+      return (
+        <View style={styles.gridContainer}>
+          {cardData.map((card,index) => (
+            <View style={{width:'48%'}} key={index}>
+              <ForumCategoryCardVertical
+              key={card.id}
+              buttonColor={card.buttonColor}
+              title={card.title}
+              subtitle={card.subtitle}
+              image={card.image}
+              data={card}
+              color={card.color}
+            />
+            </View>
+          ))}
+        </View>
+      );
+    } else {
+      return cardData.map((card) => (
+        <ForumCategoryCard
+          key={card.id}
+          buttonColor={card.buttonColor}
+          title={card.title}
+          subtitle={card.subtitle}
+          image={card.image}
+          data={card}
+          color={card.color}
+        />
+      ));
+    }
   }
   
+  
+  function handleToggleView() {
+    setIsGridView((prev) => !prev); // Toggle the view
+  }
+
 
   return (
     <View style={styles.container}>
       <CustomHeader
         image={userData.userImage ? userData.userImage : placeholder}
         label={`Greetings ${userData.userName}!`}
+        rightIcon={isGridView ? "list" : "grid"} // Change icon based on the view mode
+        rightIconPress={handleToggleView}
       />
 
       <Space space={15} />
@@ -152,6 +181,12 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     bottom: 0,
+  },
+  gridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap:10,
   },
 });
 

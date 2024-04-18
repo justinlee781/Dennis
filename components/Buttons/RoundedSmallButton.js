@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
-    paddingHorizontal:8,
-    paddingVertical:5,
+    borderRadius: 55,
+    paddingHorizontal:15,
+    paddingVertical:8,
     flexDirection:'row',
     alignItems:'center',
   },

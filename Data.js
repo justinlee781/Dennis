@@ -2,39 +2,28 @@ import assets from "./assets/assets";
 
 export const categories = [
   {
-    label: "Mobile Phones",
-    sublabel:"In Phones",
-    image: assets.cat1,
-    collectionReference : "Mobile Phone"
-  },
-  {
-    label: "Laptops",
-    sublabel:"In Workstations",
-    image: assets.cat2,
-    collectionReference : "Laptop"
-  },
-  {
-    label: "Smart Watches",
-    sublabel:"In Lifestyle",
-    image: assets.cat3,
+    label: "Firewire",
+    image: "https://cdn-icons-png.flaticon.com/128/4722/4722133.png",
     collectionReference : "Smart Watch"
   },
   {
-    label: "Tablets",
-    sublabel:"In Technology",
-    image: assets.cat4,
+    label: "JS Industries",
+    image: "https://cdn-icons-png.flaticon.com/128/13441/13441721.png",
     collectionReference : "Tablet"
   },
   {
-    label: "Computers",
-    sublabel:"In Gear",
-    image: assets.cat5,
-    collectionReference : "Computer"
+    label: "Channel Islands",
+    image: "https://cdn-icons-png.flaticon.com/128/475/475484.png",
+    collectionReference : "Mobile Phone"
   },
   {
-    label: "Computer Hardware",
-    sublabel:"In Micro-Processors",
-    image: assets.cat6,
-    collectionReference : "Hardware"
+    label: "Lost Surfboards",
+    image:"https://cdn-icons-png.flaticon.com/128/4381/4381417.png",
+    collectionReference : "Laptop"
+  },
+  {
+    label: "Other",
+    image:"https://cdn-icons-png.flaticon.com/128/1488/1488333.png",
+    collectionReference : "Computer"
   },
 ];

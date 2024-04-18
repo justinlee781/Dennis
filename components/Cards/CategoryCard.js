@@ -9,16 +9,13 @@ import Space from "../utils/Space";
 import { MaterialIcons } from '@expo/vector-icons';
 import Theme from "../../src/Theme";
 
-function CategoryCard({image,label,sublabel}){
+function CategoryCard({image,label}){
     return(
-    <View style={styles.container}>
-     <Image source={image} style={styles.cover} />
-     <Space space={8}/>
-     <Typo l>{label}</Typo>
-     <View style={{flexDirection:'row',alignItems:'center'}}>
-     <MaterialIcons name="trending-up" size={20} color={Theme.primaryColor} />
-     <Typo s grey> {sublabel}</Typo>
-     </View>
+    <View style={styles.coverbg}>
+        <View style={styles.container}>
+     <Image source={{uri:image}} style={styles.cover} />
+     <Typo style={{paddingRight:8}}>{label}</Typo>
+    </View>
     </View>
     )}
 export default CategoryCard;
@@ -26,10 +23,21 @@ export default CategoryCard;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection:'row',
+        alignItems:'center'
     },
     cover:{
-        height:150,
-        width:'100%',
-        borderRadius:10
+        height:35,
+        width:35,
+        borderRadius:55,
+        marginRight:5
+    },
+    coverbg:{
+        backgroundColor:'#f7f7f7',
+        borderRadius:100,
+        paddingHorizontal:5,
+        paddingVertical:5,
+        borderWidth:1,
+        borderColor:'#e5e5e5'
     }
 });
