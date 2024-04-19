@@ -18,13 +18,14 @@ import SignupScreen from "../screens/Auth/SignupScreen";
 import CategoryDetail from "../screens/Screens/CategoryDetail";
 import ProductDetail from "../screens/Screens/ProductDetail";
 import MyCart from "../screens/Screens/MyCart";
-import LoadingNavigate from "../screens/Screens/LoadingNavigate";
 import HandleCreateListing from "../screens/Screens/HandleCreateListing";
 import MyLikedItems from "../screens/Screens/MyLikedItems";
 import ChattingScreen from "../screens/Screens/ChattingScreen";
 import ConversationsScreen from "../screens/Screens/ConversationsScreen";
 import MyAddressScreen from "../screens/common/MyAddressScreen";
 import ForumsScreen from "../screens/Screens/ForumsScreen";
+import ForumDetails from "../screens/Screens/ForumDetials";
+import CreateForum from "../screens/Screens/CreateForum";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -97,6 +98,7 @@ export default function MyStack({ navigation }) {
           />
           <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
           <Stack.Screen name="CreatePost" component={CreatePost} />
+          <Stack.Screen name="CreateForum" component={CreateForum} />
           <Stack.Screen name="ProductDetail" component={ProductDetail} />
           <Stack.Screen name="MyCart" component={MyCart} />
           <Stack.Screen
@@ -106,6 +108,7 @@ export default function MyStack({ navigation }) {
           <Stack.Screen name="MyLikedItems" component={MyLikedItems} />
           <Stack.Screen name="ChattingScreen" component={ChattingScreen} />
           <Stack.Screen name="MyAddressScreen" component={MyAddressScreen} />
+          <Stack.Screen name="ForumDetails" component={ForumDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -152,11 +155,11 @@ function MainRoute() {
     >
       <Tab.Screen name="ForumsScreen" component={ForumsScreen} />
       <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Plus"
         component={LoadingNavigate}
         options={{ tabBarIcon: ({ focused }) => <PlusIcon /> }}
-      />
+      /> */}
       <Tab.Screen name="Chat" component={ConversationsScreen} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

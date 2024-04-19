@@ -24,10 +24,8 @@ function ListingCard({
   postedBy,
   postedByProfilePic,
   postedDate,
-  label,
   category,
-  brand,
-  condition,
+  dimensions,
 }) {
   const [showMore, setShowMore] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +60,7 @@ function ListingCard({
             />
           </View>
           <View style={{ flex: 1, paddingHorizontal: 12 }}>
-            <Typo bold>{postedBy}</Typo>
+            <Typo style={{textTransform:"capitalize"}} bold>{postedBy}</Typo>
             <Typo style={{ color: Theme.primaryColor }} s grey>
              Posting in {category}
             </Typo>
@@ -164,19 +162,11 @@ function ListingCard({
             </Typo>
             <Typo>{category}</Typo>
           </View>
-
           <View style={styles.feature}>
             <Typo  style={{ color: Theme.primaryColor }}>
-              Brand
+             Product Dimensions
             </Typo>
-            <Typo>{brand}</Typo>
-          </View>
-
-          <View style={styles.feature}>
-            <Typo  style={{ color: Theme.primaryColor }}>
-              Condition
-            </Typo>
-            <Typo>{condition}</Typo>
+            <Typo>{dimensions}</Typo>
           </View>
         </View>
 
@@ -282,6 +272,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
-const placeholder =
-  "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+const placeholder = "https://cdn-icons-png.flaticon.com/128/2202/2202112.png"

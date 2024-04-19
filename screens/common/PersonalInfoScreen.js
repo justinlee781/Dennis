@@ -31,7 +31,7 @@ function PersonalInfoScreen({ navigation }) {
             value={fullName}
             onChangeText={(text) => setFullName(text)}
             leftIcon={"person"}
-            placeholder={userData.fullName}
+            placeholder={userData.userName}
           />
           <Space space={15} />
           <InputBox

@@ -132,8 +132,8 @@ function ChattingScreen({ route }) {
     : placeholder;
 
   const userName = chatterDetail
-    ? chatterDetail.fullName.split(" ")[0]
-    : chatterTempDetial.fullName.split(" ")[0];
+    ? chatterDetail.userName
+    : chatterTempDetial.userName;
 
   return (
     <View style={styles.container}>

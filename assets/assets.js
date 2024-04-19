@@ -1,12 +1,6 @@
 export default {
     backIcon:require("./images/backIcon.png"),
     notification:require("./images/notification.png"),
-    cat1:require("./images/categories/phone.jpg"),
-    cat2:require("./images/categories/laptops.jpg"),
-    cat3:require("./images/categories/watches.jpg"),
-    cat4:require("./images/categories/tablets.png"),
-    cat5:require("./images/categories/computer.jpg"),
-    cat6:require("./images/categories/hardware.webp"),
     seller:require("./images/seller.png"),
     seller2:require("./images/businessman.png"),
     sell:require("./images/sell.png"),
@@ -17,4 +11,9 @@ export default {
     wsl:require("./images/categories/wsl.png"),
     localspots:require("./images/categories/localspots.png"),
     shape:require("./images/categories/shape.png"),
+    fireware:require("./images/categories/fireware.jpg"),
+    island:require("./images/categories/island.jpg"),
+    jsindustries:require("./images/categories/jsindustries.jpg"),
+    other:require("./images/categories/other.jpg"),
+    surfboards:require("./images/categories/surfboards.jpg"),
 }

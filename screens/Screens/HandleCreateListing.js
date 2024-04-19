@@ -33,51 +33,45 @@ function HandleCreateListing({navigation,route}){
     const handleCreateListing = async () => {
       try {
         setLoading(true);
-        const colRef = collection(dbFS, postData.category);
+        const colRef = collection(dbFS,"categories","categories", postData.category);
     
         const formatAdPrice = (price) => {
           const parsedPrice = parseFloat(price);
           if (!isNaN(parsedPrice)) {
-            // Check if price already has two decimal places
             const formattedPrice = parsedPrice.toFixed(2);
-            return formattedPrice.toString(); // Convert back to string
+            return formattedPrice.toString(); 
           } else {
-            // If price is not a valid number, return null or handle accordingly
             return null;
           }
         };
         
-        // Create a listingData object with necessary data
+
         const listingData = {
-          postedBy: userData.fullName,
+          postedBy: userData.userName,
           postedByUserID: userData.userID,
           adTitle: postData.adTitle,
           adDescription: postData.adDescription,
-          brand: postData.brand,
           postedDate: serverTimestamp(),
-          condition: postData.condition,
           adPrice: formatAdPrice(postData.adPrice),
-          category:postData.category
+          category:postData.category,
+          dimensions:postData.dimensions
         };
 
         const docRef = await addDoc(colRef, listingData);
     
-        // Upload each image in the postData.images array
+
         const uploadPromises = postData.images.map(async (imageUri) => {
           return await uploadImage(imageUri,docRef.id);
         });
-    
-        // Wait for all image uploads to complete before proceeding
+   
         const uploadedImageURLs = await Promise.all(uploadPromises);
     
-        // Filter out any undefined values from the uploadedImageURLs array
+
         const filteredImageURLs = uploadedImageURLs.filter((url) => url !== undefined);
         console.warn(filteredImageURLs);
     
-        // Create a reference to the newly added document using its ID
-        const updatedDocRef = doc(dbFS, postData.category, docRef.id);
-    
-        // Update the Firestore document with the filtered image URLs
+        const updatedDocRef = doc(dbFS, "categories","categories",postData.category, docRef.id);
+ 
         await updateDoc(updatedDocRef, {
           images: filteredImageURLs,
         });
@@ -157,15 +151,14 @@ function HandleCreateListing({navigation,route}){
             }}
           >
             <ListingCard
-              postedBy={userData.fullName}
+              postedBy={userData.userName}
               adTitle={postData.adTitle}
               adDescription={postData.adDescription}
               mainTag={"PREVIEW"}
               images={postData.images}
               adPrice={postData.adPrice}
               category={postData.category}
-              condition={postData.condition}
-              brand={postData.brand}
+              dimensions={postData.dimensions}
             />
           </View>
         </CurveView>
@@ -187,3 +180,4 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.secondaryColor,
   },
 });
+

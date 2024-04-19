@@ -11,7 +11,7 @@ import Space from "../utils/Space";
 import RoundedSmallButton from "../Buttons/RoundedSmallButton";
 import Theme from "../../src/Theme";
 
-function ForumCategoryCard({buttonColor,title,subtitle,image,color}){
+function ForumCategoryCard({buttonColor,title,subtitle,image,color,handlePress}){
     return(
     <View style={[styles.container,{
         backgroundColor:color
@@ -30,6 +30,7 @@ function ForumCategoryCard({buttonColor,title,subtitle,image,color}){
         <RoundedSmallButton
         color={buttonColor}
         label={"View It Now"}
+        handlePress={handlePress}
         />
         </View>
     </View>

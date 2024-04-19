@@ -8,7 +8,7 @@ import Typo from "../utils/Typo";
 import Space from "../utils/Space";
 import RoundedSmallButton from "../Buttons/RoundedSmallButton";
 
-function ForumCategoryCardVertical({buttonColor,title,subtitle,image,color}){
+function ForumCategoryCardVertical({buttonColor,title,subtitle,image,color,handlePress}){
     return(
     <View style={[styles.container,{
         backgroundColor:color
@@ -26,6 +26,7 @@ function ForumCategoryCardVertical({buttonColor,title,subtitle,image,color}){
         <RoundedSmallButton
         color={buttonColor}
         label={"View It Now"}
+        handlePress={handlePress}
         />
     </View>
     </View>

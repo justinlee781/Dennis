@@ -10,6 +10,7 @@ export default function App() {
     OutfitBold: require("./assets/fonts/Outfit-Bold.ttf"),
     OutfitMedium: require("./assets/fonts/Outfit-Medium.ttf"),
     OutfitLight: require("./assets/fonts/Outfit-Light.ttf"),
+    Pacifico: require("./assets/fonts/Pacifico-Regular.ttf"),
   });
 
   if (!fontsLoaded) {

@@ -13,89 +13,13 @@ import LineBar from "../../components/utils/LineBar";
 import FullButton from "../../components/Buttons/FullButton";
 
 const catData = [
-  "Mobile Phone",
-  "Laptop",
-  "Smart Watch",
-  "Tablet",
-  "Computer",
-  "Hardware",
+  "Channel Islands",
+  "Lost Surfboards",
+  "Firewire",
+  "JS Industries",
+  "Other",
 ];
 
-const brandData = {
-  "Mobile Phone": [
-    "Apple (iPhone)",
-    "Samsung (Galaxy)",
-    "Google (Pixel)",
-    "OnePlus",
-    "Huawei",
-    "Xiaomi",
-    "Motorola",
-    "Sony",
-    "LG",
-  ],
-  Laptop: [
-    "Apple (MacBook)",
-    "Dell",
-    "HP (Hewlett-Packard)",
-    "Lenovo",
-    "Asus",
-    "Acer",
-    "Microsoft (Surface)",
-    "MSI",
-    "Razer",
-  ],
-  "Smart Watch": [
-    "Apple (Apple Watch)",
-    "Samsung (Galaxy Watch)",
-    "Fitbit",
-    "Garmin",
-    "Huawei",
-    "Fossil",
-    "Amazfit",
-    "TicWatch",
-    "Xiaomi (Mi Band)",
-  ],
-  Tablet: [
-    "Apple (iPad)",
-    "Samsung (Galaxy Tab)",
-    "Amazon (Kindle Fire)",
-    "Microsoft (Surface)",
-    "Huawei",
-    "Lenovo",
-    "Asus",
-    "Google (Pixel Slate)",
-    "Xiaomi",
-  ],
-  Computer: [
-    "Apple (iMac, Mac Pro)",
-    "Dell",
-    "HP (Hewlett-Packard)",
-    "Lenovo",
-    "Asus",
-    "Acer",
-    "Microsoft (Surface)",
-    "MSI",
-    "Razer",
-  ],
-  Hardware: [
-    "Intel",
-    "AMD",
-    "Nvidia",
-    "ASUS (motherboards, graphics cards, etc.)",
-    "Corsair (RAM, power supplies, etc.)",
-    "Seagate (hard drives, SSDs)",
-    "Western Digital (hard drives, SSDs)",
-    "Samsung (SSDs, memory)",
-    "Logitech (peripherals, accessories)",
-  ],
-};
-
-const conditionData = [
-  "Recently Bought (New)",
-  "1 - 6 Months Old",
-  "6 - 12 Months Old",
-  "Quiet Old",
-];
 
 function CreatePost({ navigation }) {
   const [hasPhotos, setHasPhotos] = useState(false);
@@ -146,42 +70,10 @@ function CreatePost({ navigation }) {
       return;
     }
 
-    if (!condition) {
-      Alert.alert(
-        "Select Condition",
-        "Please select a condition to continue, the condition cannot be empty"
-      );
-      return;
-    }
-
-    if (!brand) {
-      Alert.alert(
-        "Select Brand",
-        "Please select a brand to continue, the brand cannot be empty"
-      );
-      return;
-    }
-
     if (!adTitle || !adDescription || !adPrice || !dimensions) {
       Alert.alert(
         "Incomplete Information",
         "Please fill in all the details for the listing."
-      );
-      return;
-    }
-
-    if (adTitle.split(" ").length < 5) {
-      Alert.alert(
-        "Ad Title Too Short",
-        "Please enter an ad title with at least 5 words."
-      );
-      return;
-    }
-
-    if (adDescription.split(" ").length < 10) {
-      Alert.alert(
-        "Description Too Short",
-        "Please enter a description with at least 10 words."
       );
       return;
     }
@@ -207,12 +99,11 @@ function CreatePost({ navigation }) {
     // Create an array with all data
     const postData = {
       category,
-      condition,
-      brand,
       adTitle,
       adDescription,
       adPrice: priceNumber, // Convert price to a valid number
       images,
+      dimensions
     };
 
     // Pass the array as a route param to the next screen
@@ -235,23 +126,7 @@ function CreatePost({ navigation }) {
             label={"Select Category"}
             data={catData}
             setSelectedItem={setcategory}
-          />
-          {category ? <Space space={15} /> : null}
-          {category ? (
-            <Dropdown
-              label={"Select Brand"}
-              data={brandData[category]}
-              setSelectedItem={setbrand}
-            />
-          ) : null}
-          {category ? <Space space={15} /> : null}
-          {category ? (
-            <Dropdown
-              label={"Select Condition"}
-              data={conditionData}
-              setSelectedItem={setconditon}
-            />
-          ) : null}
+          />        
         </View>
         <Space space={15} />
         <LineBar margin={5} />

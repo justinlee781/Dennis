@@ -11,5 +11,6 @@ export default {
     OutfitBold: 'OutfitBold',
     OutfitMedium: 'OutfitMedium',
     OutfitLight:'OutfitLight',
+    Pacifico:"Pacifico",
     align:{alignItems:'center',flexDirection:'row'}
 }

@@ -8,18 +8,42 @@ import {
 import Typo from "../utils/Typo";
 import Theme from "../../src/Theme";
 
-function ProductCard({ img, title, price ,handleImagePress,brand}) {
+function ProductCard({ img, title, price ,handleImagePress,postDate}) {
+
+  function formatTimestamp(timestamp) {
+    const currentDate = new Date();
+    const secondsAgo = (currentDate.getTime() - timestamp.toMillis()) / 1000;
+  
+    if (secondsAgo < 60) {
+      return "Just now";
+    } else if (secondsAgo < 3600) {
+      const minutes = Math.floor(secondsAgo / 60);
+      return minutes === 1 ? "1 min ago" : `${minutes} mins ago`;
+    } else if (secondsAgo < 86400) {
+      const hours = Math.floor(secondsAgo / 3600);
+      return hours === 1 ? "1 h ago" : `${hours} hrs ago`;
+    } else if (secondsAgo < 2592000) {
+      const days = Math.floor(secondsAgo / 86400);
+      return days === 1 ? "1 day ago" : `${days} days ago`;
+    } else if (secondsAgo < 31536000) {
+      const months = Math.floor(secondsAgo / 2592000);
+      return months === 1 ? "1 month ago" : `${months} months ago`;
+    } else {
+      const years = Math.floor(secondsAgo / 31536000);
+      return years === 1 ? "1 year ago" : `${years} years ago`;
+    }
+  }
   
   return (
     <View style={styles.container}>
      <TouchableOpacity onPress={handleImagePress}>
-     <Image source={{ uri: img }} style={{ flex: 1,borderRadius:10,height:178,backgroundColor:'#f8f8f8' }}>
+     <Image source={{ uri: img }} style={{ flex: 1,borderRadius:35,height:178,backgroundColor:'#f8f8f8' }}>
       </Image>
      </TouchableOpacity>
       <View style={styles.blurContainer}>
           <View style={{ flex: 1 }}>
           <Typo style={{textTransform:"capitalize"}} numberOfLines={1} grey s>
-             {/* {formatTimestamp(postDate)} */} {brand}
+           {postDate ? formatTimestamp(postDate) : null}
             </Typo>
             <Typo style={{textTransform:"capitalize"}} numberOfLines={1} l>
               {title}

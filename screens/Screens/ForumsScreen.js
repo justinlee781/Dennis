@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import CustomHeader from "../../components/Headers/CustomHeader";
 import Theme from "../../src/Theme";
 import CurveView from "../../components/utils/CurveView";
@@ -10,12 +10,13 @@ import Space from "../../components/utils/Space";
 import ForumCategoryCard from "../../components/Cards/ForumCategoryCard";
 import assets from "../../assets/assets";
 import ForumCategoryCardVertical from "../../components/Cards/FromCategoryCardVertical";
-
+import Typo from "../../components/utils/Typo";
+import RoundedSmallButton from "../../components/Buttons/RoundedSmallButton";
 
 const cardData = [
   {
     id: 1,
-    title: "World Surf League",
+    title: "WSL",
     subtitle: "Discuss professional surfing",
     buttonColor: "#FFD600", // Darker variant of color
     image: assets.wsl,
@@ -55,14 +56,11 @@ const cardData = [
   },
 ];
 
-
-
 function ForumsScreen({ navigation }) {
   const userData = useStore((state) => state.userData);
   const setUserData = useStore((state) => state.setUserData);
   const userID = useStore((state) => state.userID);
   const [isGridView, setIsGridView] = useState(true); // State to manage the toggle
-
 
   useEffect(() => {
     if (userID && !userData) {
@@ -83,22 +81,26 @@ function ForumsScreen({ navigation }) {
     return null;
   }
 
-
   function renderCards() {
     if (isGridView) {
       return (
         <View style={styles.gridContainer}>
-          {cardData.map((card,index) => (
-            <View style={{width:'48%'}} key={index}>
+          {cardData.map((card, index) => (
+            <View style={{ width: "48%" }} key={index}>
               <ForumCategoryCardVertical
-              key={card.id}
-              buttonColor={card.buttonColor}
-              title={card.title}
-              subtitle={card.subtitle}
-              image={card.image}
-              data={card}
-              color={card.color}
-            />
+                key={card.id}
+                buttonColor={card.buttonColor}
+                title={card.title}
+                subtitle={card.subtitle}
+                image={card.image}
+                data={card}
+                color={card.color}
+                handlePress={() =>
+                  navigation.navigate("ForumDetails", {
+                    item: card,
+                  })
+                }
+              />
             </View>
           ))}
         </View>
@@ -113,16 +115,19 @@ function ForumsScreen({ navigation }) {
           image={card.image}
           data={card}
           color={card.color}
+          handlePress={() =>
+            navigation.navigate("ForumDetails", {
+              item: card,
+            })
+          }
         />
       ));
     }
   }
-  
-  
+
   function handleToggleView() {
     setIsGridView((prev) => !prev); // Toggle the view
   }
-
 
   return (
     <View style={styles.container}>
@@ -133,9 +138,24 @@ function ForumsScreen({ navigation }) {
         rightIconPress={handleToggleView}
       />
 
-      <Space space={15} />
-      <CurveView style={{padding:15}}>
-      {renderCards()}
+      <Space space={5} />
+      <CurveView style={{ paddingTop: 15, paddingHorizontal: 15 }}>
+        <ImageBackground 
+        source={require('../../assets/images/categories/postbg.png')}
+        style={styles.add}>
+        <View style={styles.info}>
+        <Typo l bold>Looking to Post?</Typo>
+        <Typo s grey>Get your convo started!</Typo>
+        <Space space={5}/>
+        <RoundedSmallButton
+        color={"#007bff"}
+        label={"Start a forum"}
+        handlePress={()=>navigation.navigate("CreateForum")}
+        />
+        </View>
+        </ImageBackground>
+        <Space space={10} />
+        {renderCards()}
       </CurveView>
     </View>
   );
@@ -186,8 +206,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    gap:10,
+    gap: 10,
   },
+  add: {
+    width: "100%",
+    borderRadius: 25,
+    backgroundColor: "#d1fffc",
+    height:125,
+    overflow:'hidden'
+  },
+  info:{
+    flex:1,
+    alignItems:'flex-end',
+    paddingHorizontal:20,
+    justifyContent:'center'
+  }
 });
 
 export default ForumsScreen;
