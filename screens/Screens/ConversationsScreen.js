@@ -19,7 +19,7 @@ import {
 } from "firebase/firestore";
 import CustomHeader from "../../components/Headers/CustomHeader";
 import Theme from "../../src/Theme";
-import CurveView from "../../components/utils/CurveView";
+import LottieView from "lottie-react-native";
 import FilterTags from "../../components/utils/FilterTags";
 import Space from "../../components/utils/Space";
 import Typo from "../../components/utils/Typo";
@@ -82,6 +82,7 @@ function ConversationsScreen({ navigation }) {
   const [conversations, setConversations] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
   const userID = useStore((state) => state.userID);
+  const [loading, setLoading] = useState(true);
   const handleTagPress = (item) => {
     setSelectedTag(item);
   };
@@ -99,6 +100,7 @@ function ConversationsScreen({ navigation }) {
         });
         setConversations(conversationsData);
         setDataFetched(true);
+        setLoading(false); 
       }
     );
 
@@ -136,35 +138,56 @@ function ConversationsScreen({ navigation }) {
     <View style={styles.container}>
       <CustomHeader label={`Conversations`} />
       <View style={styles.CurveView}>
-        <Space space={10} />
+        {
+          loading ? null : 
+          <>
+          <Space space={10} />
         <FilterTags
           onTagPress={handleTagPress}
           selectedTag={selectedTag}
           tags={["All", "Buying", "Selling"]}
         />
         <Space space={15} />
-        <FlatList
-          data={conversations}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ConversationCard
-            fullName={
-                item.otherParticipantDetails
-                  ? item.otherParticipantDetails.fullName.split(" ")[0]
-                  : ""
-              }
-              profilePic={
-                item.otherParticipantDetails &&
-                item.otherParticipantDetails.profilePic
-                  ? item.otherParticipantDetails.profilePic
-                  : placeholder
-              }
-              lastMessage={"Click To View Conversation."}
-              time={formatTimestamp(item.conversationStarted)}
-              id={item.id}
-            />
-          )}
+          </>
+        }
+        {loading ? ( // Check if loading
+          <ActivityIndicator style={{marginTop:"35%"}} size="large" color={Theme.primaryColor} />
+        ) : conversations.length === 0 ? ( // Check if conversations array is empty
+        <View style={styles.emptyStateContainer}>
+        <LottieView
+          source={require("../../assets/empty.json")}
+          style={styles.emptyStateAnimation}
+          autoPlay
         />
+        <Typo xl>Woopsie! Nothing here!</Typo>
+        <Typo grey style={styles.emptyStateText}>
+          Seems like there are no conversations yet. Once you talk to a seller, you will see all your conversations here.
+        </Typo>
+      </View>
+        ) : ( // Render conversations list
+          <FlatList
+            data={conversations}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <ConversationCard
+                fullName={
+                  item.otherParticipantDetails
+                    ? item.otherParticipantDetails.userName
+                    : ""
+                }
+                profilePic={
+                  item.otherParticipantDetails &&
+                  item.otherParticipantDetails.profilePic
+                    ? item.otherParticipantDetails.profilePic
+                    : placeholder
+                }
+                lastMessage={"Click To View Conversation."}
+                time={formatTimestamp(item.conversationStarted)}
+                id={item.id}
+              />
+            )}
+          />
+        )}
       </View>
     </View>
   );
@@ -214,6 +237,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
     paddingTop: 5,
+  },
+  emptyStateContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+  },
+  emptyStateAnimation: {
+    height: 220,
+    width: 160,
+  },
+  emptyStateText: {
+    textAlign: "center",
   },
 });
 

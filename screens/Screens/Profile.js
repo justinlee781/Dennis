@@ -209,7 +209,7 @@ function SPProfile({navigation}){
             )}
             <Space space={15} />
             <Typo l >
-              Hi,{userData.fullName}
+              Hi,{userData.userName}
             </Typo>
             <Space space={5} />
             <TouchableOpacity onPress={handleSelectImage}>

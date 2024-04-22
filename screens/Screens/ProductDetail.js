@@ -298,7 +298,7 @@ const handleInitiateChat = async () => {
   useEffect(() => {
     const fetchDocument = async () => {
       try {
-        const docRef = doc(dbFS, item.category, item.id);
+        const docRef = doc(dbFS,"categories","categories", item.category, item.id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -423,12 +423,8 @@ const handleInitiateChat = async () => {
 
         <View style={styles.curveBottom}>
           <View style={{ flex: 1 }}>
-            <Typo style={{ fontSize: 22, textTransform: "capitalize" }}>
+            <Typo style={{ fontSize: 25, textTransform: "capitalize" }}>
               {documentData.adTitle}
-            </Typo>
-            <Space space={2} />
-            <Typo m style={{ color: Theme.primaryColor }}>
-              In {documentData.category}
             </Typo>
           </View>
           <View>
@@ -458,13 +454,9 @@ const handleInitiateChat = async () => {
                 icon={"basket"}
                 label={`Category : ${documentData.category}`}
               />
-              <OverviewItem
-                icon={"star"}
-                label={`Condition : ${documentData.condition}`}
-              />
-              <OverviewItem
+               <OverviewItem
                 icon={"accessibility"}
-                label={`Brand : ${documentData.brand}`}
+                label={`Dimensions : ${documentData.dimensions}`}
               />
             </View>
           </View>
@@ -494,7 +486,7 @@ const handleInitiateChat = async () => {
           </View>
         </View>
       </Animated.ScrollView>
-      {documentData.postedByUserID === userID ? (
+      {documentData.postedByUserID !== userID ? (
         <View style={[styles.bottomWrapper, { gap: 10 }]}>
           <View style={{ flex: 1 }}>
             <FullButtonStroke
@@ -506,17 +498,8 @@ const handleInitiateChat = async () => {
         </View>
       ) : (
         <View style={styles.bottomWrapper}>
-          <View style={{ width: "32%" }}>
-            <FullButtonStroke handlePress={handleInitiateChat} color={"black"} label={"Chat Now"} />
-          </View>
-          <View style={{ width: "66%" }}>
-           {/* {isInCart ?
-            <FullButton handlePress={()=>navigation.navigate("MyCart")} color={Theme.primaryColor} label={"Item Already In Cart"} />
-           :
-           <FullButton handlePress={handleAddToCart} color={Theme.primaryColor} label={"Add to Cart"} />} */}
-            <FullButton handlePress={()=>navigation.replace("CreateAnOrder",{
-              cartItems:[item]
-            })} color={Theme.primaryColor} label={"Buy Now"} />
+          <View style={{ width: "100%" }}>
+            <FullButton handlePress={handleInitiateChat} color={Theme.primaryColor} label={"Chat with Seller Now!"} />
           </View>
         </View>
       )}

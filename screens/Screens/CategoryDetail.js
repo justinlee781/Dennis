@@ -29,6 +29,7 @@ function CategoryDetail({ navigation, route }) {
   const { item } = route.params;
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -36,22 +37,28 @@ function CategoryDetail({ navigation, route }) {
       collection(dbFS, "categories", "categories", item.collectionReference),
       (querySnapshot) => {
         const fetchedDocuments = querySnapshot.docs
-          .filter((doc) => !doc.data().sold) // Filter out documents where "sold" is true
+          .filter((doc) => !doc.data().sold) 
           .map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
         setDocuments(fetchedDocuments);
-        console.log(fetchedDocuments);
         setLoading(false);
       }
     );
 
-    // Return cleanup function to unsubscribe when component unmounts
     return () => {
       unsubscribe();
     };
   }, []);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredDocuments = documents.filter((doc) =>
+    doc.adTitle.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   if (loading) {
     return (
@@ -87,7 +94,7 @@ function CategoryDetail({ navigation, route }) {
 
   return (
     <ImageBackground
-    source={getImageSource(item.label)}
+      source={getImageSource(item.label)}
       style={styles.container}
     >
       <HeaderTwoIcons
@@ -97,12 +104,16 @@ function CategoryDetail({ navigation, route }) {
         rightIcon={true}
       />
       <View style={{ paddingHorizontal: 15, paddingBottom: 10 }}>
-        <InputBox leftIcon={"search"} placeholder={"Search"} />
+        <InputBox
+          leftIcon={"search"}
+          placeholder={"Search"}
+          onChangeText={handleSearch}
+        />
       </View>
       <CurveView>
         <View style={styles.cardsContainer}>
-          {documents.length > 0 ? (
-            documents.map((doc, index) => (
+          {filteredDocuments.length > 0 ? (
+            filteredDocuments.map((doc, index) => (
               <View key={index} style={styles.cardWrapper}>
                 <ProductCard
                   price={doc.adPrice}
@@ -125,8 +136,7 @@ function CategoryDetail({ navigation, route }) {
               />
               <Typo xl>Woopsie! Nothing here!</Typo>
               <Typo grey style={styles.emptyStateText}>
-                Seems like there are no listings yet. Try exploring some other
-                category.
+                No results found for "{searchQuery}". Try a different search.
               </Typo>
               <Space space={25} />
               <FullButton
