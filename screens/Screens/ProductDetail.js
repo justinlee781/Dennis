@@ -486,7 +486,7 @@ const handleInitiateChat = async () => {
           </View>
         </View>
       </Animated.ScrollView>
-      {documentData.postedByUserID !== userID ? (
+      {documentData.postedByUserID === userID ? (
         <View style={[styles.bottomWrapper, { gap: 10 }]}>
           <View style={{ flex: 1 }}>
             <FullButtonStroke
