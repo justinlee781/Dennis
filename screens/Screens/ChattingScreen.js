@@ -132,8 +132,8 @@ function ChattingScreen({ route }) {
     : placeholder;
 
   const userName = chatterDetail
-    ? chatterDetail.userName
-    : chatterTempDetial.userName;
+    ? chatterDetail.fullName
+    : chatterTempDetial.fullName;
 
   return (
     <View style={styles.container}>
@@ -143,9 +143,6 @@ function ChattingScreen({ route }) {
         hasBackButton={true}
         image={userImage}
         label={userName}
-        sublabel={`Chatting Since : ${chatData.conversationStarted
-          .toDate()
-          .toLocaleDateString()}`}
       />
 
       <View style={styles.CurveView}>

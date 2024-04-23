@@ -26,6 +26,7 @@ import MyAddressScreen from "../screens/common/MyAddressScreen";
 import ForumsScreen from "../screens/Screens/ForumsScreen";
 import ForumDetails from "../screens/Screens/ForumDetials";
 import CreateForum from "../screens/Screens/CreateForum";
+import ForumInside from "../screens/Screens/ForumInside";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -109,6 +110,7 @@ export default function MyStack({ navigation }) {
           <Stack.Screen name="ChattingScreen" component={ChattingScreen} />
           <Stack.Screen name="MyAddressScreen" component={MyAddressScreen} />
           <Stack.Screen name="ForumDetails" component={ForumDetails} />
+          <Stack.Screen name="ForumInside" component={ForumInside} />
         </Stack.Navigator>
       </NavigationContainer>
     );
