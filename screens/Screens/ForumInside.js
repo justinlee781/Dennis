@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Alert ,Image} from "react-native";
 import HeaderTwoIcons from "../../components/Headers/HeaderTwoIcons";
 import CurveView from "../../components/utils/CurveView";
 import Theme from "../../src/Theme";
@@ -119,6 +119,15 @@ function ForumInside({ route }) {
     <View style={[styles.container, { backgroundColor: cardColor }]}>
       <HeaderTwoIcons leftIcon={true} label={`${forumDetails.title}`} />
       <CurveView style={{ paddingHorizontal: 15, backgroundColor: "#f7f7f7" }}>
+       
+      <View style={styles.card}>
+        <Image
+        source={{uri:"https://www.myhoardings.com/FAQ/wp-content/uploads/2022/06/mcd-cross-promotion.jpg"}}
+        style={{width:'100%',height:150,borderRadius:10}}
+        />
+      </View>
+       
+       
         <View style={styles.card}>
           <View
             style={{

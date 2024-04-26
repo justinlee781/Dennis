@@ -48,8 +48,8 @@ const ForumCard = ({ title, description, postDate, cardColor,handlePress }) => {
     }]}>
       <Image source={randomImage} style={styles.image} resizeMode="contain" />
       <View style={styles.content}>
-        <Typo style={styles.title}>🙋 {title}</Typo>
-        <Typo s>🧾 {description}</Typo>
+        <Typo numberOfLines={1} style={styles.title}>{title}</Typo>
+        <Typo numberOfLines={1} s>{description}</Typo>
         <View style={styles.postDateContainer}>
           <Typo s grey>⏲️ {postDate ? formatTimestamp(postDate) : null}</Typo>
         </View>

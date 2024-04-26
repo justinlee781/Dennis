@@ -28,8 +28,7 @@ function CreatePost({ navigation }) {
   const [dimensions, setDimensions] = useState(null);
   const [adTitle, setadTitle] = useState(null);
   const [adPrice, setadPrice] = useState(null);
-  const [brand, setbrand] = useState(null);
-  const [condition, setconditon] = useState(null);
+  const [location, setLocation] = useState(null);
   const [category, setcategory] = useState(null);
 
   const pickImage = async () => {
@@ -70,6 +69,14 @@ function CreatePost({ navigation }) {
       return;
     }
 
+    if (!location) {
+      Alert.alert(
+        "Select Location",
+        "Please enter a Location to continue, the Location cannot be empty"
+      );
+      return;
+    }
+
     if (!adTitle || !adDescription || !adPrice || !dimensions) {
       Alert.alert(
         "Incomplete Information",
@@ -78,7 +85,6 @@ function CreatePost({ navigation }) {
       return;
     }
 
-    // Check if price is a valid number
     const priceNumber = parseFloat(adPrice);
     if (isNaN(priceNumber)) {
       Alert.alert(
@@ -96,21 +102,23 @@ function CreatePost({ navigation }) {
       return;
     }
 
-    // Create an array with all data
     const postData = {
       category,
       adTitle,
       adDescription,
-      adPrice: priceNumber, // Convert price to a valid number
+      adPrice: priceNumber, 
       images,
-      dimensions
+      dimensions,
+      location
     };
 
-    // Pass the array as a route param to the next screen
+
     navigation.navigate("HandleCreateListing", {
       postData,
     });
   };
+
+  
   return (
     <View style={styles.container}>
       <HeaderTwoIcons
@@ -138,6 +146,14 @@ function CreatePost({ navigation }) {
             placeholder={"Enter here"}
             value={adTitle}
             onChangeText={(t) => setadTitle(t)}
+          />
+          <Space space={15} />
+          <InputBox
+            leftIcon={"resize"}
+            label={"Nearby Location"}
+            placeholder={"Eg. Ninth Street, Berkeley CA 94710"}
+            value={location}
+            onChangeText={(t) => setLocation(t)}
           />
           <Space space={15} />
           <InputBox

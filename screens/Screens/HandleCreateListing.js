@@ -54,7 +54,8 @@ function HandleCreateListing({navigation,route}){
           postedDate: serverTimestamp(),
           adPrice: formatAdPrice(postData.adPrice),
           category:postData.category,
-          dimensions:postData.dimensions
+          dimensions:postData.dimensions,
+          location:postData.location
         };
 
         const docRef = await addDoc(colRef, listingData);
@@ -159,6 +160,7 @@ function HandleCreateListing({navigation,route}){
               adPrice={postData.adPrice}
               category={postData.category}
               dimensions={postData.dimensions}
+              location={postData.location}
             />
           </View>
         </CurveView>

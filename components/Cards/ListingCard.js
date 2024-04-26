@@ -26,6 +26,7 @@ function ListingCard({
   postedDate,
   category,
   dimensions,
+  location
 }) {
   const [showMore, setShowMore] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -164,9 +165,15 @@ function ListingCard({
           </View>
           <View style={styles.feature}>
             <Typo  style={{ color: Theme.primaryColor }}>
-             Product Dimensions
+             Dimensions
             </Typo>
             <Typo>{dimensions}</Typo>
+          </View>
+          <View style={styles.feature}>
+            <Typo  style={{ color: Theme.primaryColor }}>
+             Your Location
+            </Typo>
+            <Typo>{location}</Typo>
           </View>
         </View>
 

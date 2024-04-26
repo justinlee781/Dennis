@@ -75,7 +75,7 @@ function ForumDetails({ route,navigation }) {
                   <ForumCard
                     title={item.title}
                     description={item.description}
-                    postDate={item.postDate}
+                    postDate={item.createdAt}
                     image={item.image}
                     cardColor={cardColor}
                     handlePress={()=>navigation.navigate("ForumInside",{

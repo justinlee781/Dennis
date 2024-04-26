@@ -23,7 +23,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import FullButton from "../../components/Buttons/FullButton";
 import FullButtonStroke from "../../components/Buttons/FullButtonStroke";
 import useStore from "../../store";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { dbFS } from "../../config/firebase";
 import LottieView from "lottie-react-native";
 
@@ -169,13 +180,13 @@ function ProductDetail({ route, navigation }) {
     }
   };
 
-  const handleAddToCart = async ()=>{
+  const handleAddToCart = async () => {
     try {
       const cart = await getCartItems();
       const updatedCart = [...cart, item];
       await AsyncStorage.setItem("cart", JSON.stringify(updatedCart));
       Alert.alert("Success", "Item added to cart!");
-      navigation.navigate("MyCart")
+      navigation.navigate("MyCart");
     } catch (error) {
       console.error("Error adding to favorites:", error);
       Alert.alert(
@@ -183,7 +194,7 @@ function ProductDetail({ route, navigation }) {
         "An error occurred while adding to favorites. Please try again later."
       );
     }
-  }
+  };
 
   const addToFavorites = async () => {
     try {
@@ -220,85 +231,91 @@ function ProductDetail({ route, navigation }) {
 
   const checkIfInFavorites = async () => {
     const favorites = await getFavorites();
-    const isInFavorites = favorites.some(
-      (favorite) => favorite.id === item.id
-    );
+    const isInFavorites = favorites.some((favorite) => favorite.id === item.id);
     setIsInFavorites(isInFavorites);
     checkIfInCart();
   };
 
   const checkIfInCart = async () => {
-
     const cart = await getCartItems();
-    const isInCart = cart.some(
-      (ct) => ct.id === item.id
-    );
-    console.log("Checking if in cart...",isInCart)
+    const isInCart = cart.some((ct) => ct.id === item.id);
+    console.log("Checking if in cart...", isInCart);
     setIsInCart(isInCart);
   };
 
-const handleInitiateChat = async () => {
-  try {
-    // Check if a conversation with the participants already exists
-    const conversationsQuery = query(collection(dbFS, "conversations"),
-      where("participants", "array-contains-any", [userID, item.postedByUserID]));
+  const handleInitiateChat = async () => {
+    try {
+      // Check if a conversation with the participants already exists
+      const conversationsQuery = query(
+        collection(dbFS, "conversations"),
+        where("participants", "array-contains-any", [
+          userID,
+          item.postedByUserID,
+        ])
+      );
 
-    const conversationsSnapshot = await getDocs(conversationsQuery);
+      const conversationsSnapshot = await getDocs(conversationsQuery);
 
-    if (!conversationsSnapshot.empty) {
-      // Conversation already exists
-      const existingConversationDoc = conversationsSnapshot.docs[0]; // Assuming there's only one matching conversation
-      const existingConversationID = existingConversationDoc.id;
-      
-      console.log("Conversation already exists with ID: ", existingConversationID);
-      
-      // You can navigate to the ChattingScreen with the existing conversation ID
+      if (!conversationsSnapshot.empty) {
+        // Conversation already exists
+        const existingConversationDoc = conversationsSnapshot.docs[0]; // Assuming there's only one matching conversation
+        const existingConversationID = existingConversationDoc.id;
+
+        console.log(
+          "Conversation already exists with ID: ",
+          existingConversationID
+        );
+
+        // You can navigate to the ChattingScreen with the existing conversation ID
+        navigation.navigate("ChattingScreen", {
+          conversationID: existingConversationID,
+          chatterDetail: {
+            profilePic: placeholder,
+            fullName: documentData.postedBy,
+          },
+        });
+
+        return;
+      }
+
+      // If no existing conversation found, create a new one
+      const newConversationDoc = await addDoc(
+        collection(dbFS, "conversations"),
+        {
+          buyerID: userID,
+          sellerID: item.postedByUserID,
+          participants: [userID, item.postedByUserID],
+          conversationStarted: serverTimestamp(),
+        }
+      );
+
+      console.log("New conversation created with ID: ", newConversationDoc.id);
       navigation.navigate("ChattingScreen", {
-        conversationID: existingConversationID,
+        conversationID: newConversationDoc.id,
         chatterDetail: {
           profilePic: placeholder,
           fullName: documentData.postedBy,
         },
       });
-      
-      return;
+    } catch (error) {
+      console.error("Error initiating chat:", error);
+      Alert.alert(
+        "Error",
+        "An error occurred while initiating the chat. Please try again later."
+      );
     }
-
-
-    // If no existing conversation found, create a new one
-    const newConversationDoc = await addDoc(collection(dbFS, 'conversations'), {
-      buyerID: userID,
-      sellerID: item.postedByUserID,
-      participants: [
-        userID,
-        item.postedByUserID
-      ],
-      conversationStarted: serverTimestamp()
-    });
-
-    console.log("New conversation created with ID: ", newConversationDoc.id);
-    navigation.navigate("ChattingScreen", {
-      conversationID: newConversationDoc.id,
-      chatterDetail: {
-        profilePic: placeholder,
-        fullName: documentData.postedBy,
-      },
-    });
-
-  } catch (error) {
-    console.error("Error initiating chat:", error);
-    Alert.alert(
-      "Error",
-      "An error occurred while initiating the chat. Please try again later."
-    );
-  }
-};
-
+  };
 
   useEffect(() => {
     const fetchDocument = async () => {
       try {
-        const docRef = doc(dbFS,"categories","categories", item.category, item.id);
+        const docRef = doc(
+          dbFS,
+          "categories",
+          "categories",
+          item.category,
+          item.id
+        );
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -306,7 +323,7 @@ const handleInitiateChat = async () => {
           setLoading(false);
         } else {
           console.log("No such document!");
-          setDocumentData(null)
+          setDocumentData(null);
           setLoading(false);
         }
       } catch (error) {
@@ -319,7 +336,7 @@ const handleInitiateChat = async () => {
   }, []);
 
   useEffect(() => {
-    checkIfInFavorites(); 
+    checkIfInFavorites();
   }, []);
 
   if (loading) {
@@ -340,7 +357,11 @@ const handleInitiateChat = async () => {
       <View
         style={[
           styles.container,
-          { alignItems: "center", justifyContent: "center",paddingHorizontal:20 },
+          {
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: 20,
+          },
         ]}
       >
         <LottieView
@@ -350,10 +371,10 @@ const handleInitiateChat = async () => {
         />
         <Typo xl>Woopsie! Nothing here!</Typo>
         <Typo grey style={styles.emptyStateText}>
-          Seems like the item got deleted or doesn't exist anymore. Try exploring some other
-          items.
+          Seems like the item got deleted or doesn't exist anymore. Try
+          exploring some other items.
         </Typo>
-        <Space space={25}/>
+        <Space space={25} />
         <FullButton
           handlePress={() => navigation.goBack()}
           color={Theme.primaryColor}
@@ -362,9 +383,6 @@ const handleInitiateChat = async () => {
       </View>
     );
   }
-
-
-
 
   return (
     <View style={styles.container}>
@@ -454,10 +472,19 @@ const handleInitiateChat = async () => {
                 icon={"basket"}
                 label={`Category : ${documentData.category}`}
               />
-               <OverviewItem
+              <OverviewItem
                 icon={"accessibility"}
                 label={`Dimensions : ${documentData.dimensions}`}
               />
+              {
+                documentData.location ?
+                <OverviewItem
+                icon={"location"}
+                label={`Location : ${documentData.location}`}
+              />
+              :
+              null
+              }
             </View>
           </View>
 
@@ -499,7 +526,11 @@ const handleInitiateChat = async () => {
       ) : (
         <View style={styles.bottomWrapper}>
           <View style={{ width: "100%" }}>
-            <FullButton handlePress={handleInitiateChat} color={Theme.primaryColor} label={"Chat with Seller Now!"} />
+            <FullButton
+              handlePress={handleInitiateChat}
+              color={Theme.primaryColor}
+              label={"Chat with Seller Now!"}
+            />
           </View>
         </View>
       )}
@@ -592,17 +623,17 @@ const styles = StyleSheet.create({
   },
   emptyStateContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal:10
-},
-emptyStateAnimation: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+  },
+  emptyStateAnimation: {
     height: 220,
     width: 160,
-},
-emptyStateText: {
-    textAlign: 'center',
-},
+  },
+  emptyStateText: {
+    textAlign: "center",
+  },
 });
 
 const placeholder = "https://cdn-icons-png.flaticon.com/128/236/236832.png";
