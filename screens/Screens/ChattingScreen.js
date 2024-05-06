@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 100,
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 8,
     marginRight: 6,
     fontFamily: Theme.OutfitMedium,
   },

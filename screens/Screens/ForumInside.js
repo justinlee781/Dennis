@@ -17,6 +17,7 @@ function ForumInside({ route }) {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false)
   const userData = useStore((state) => state.userData);
+  const adBanners = useStore((state) => state.adBanners);
 
   function formatTimestamp(timestamp) {
     const currentDate = new Date();
@@ -71,7 +72,7 @@ function ForumInside({ route }) {
     fetchComments();
   }, [item.id]);
 
-  console.log(userData)
+
   const handleComment = async () => {
     if (comment) {
       try {
@@ -115,16 +116,23 @@ function ForumInside({ route }) {
     }
   };
 
+
+
   return (
     <View style={[styles.container, { backgroundColor: cardColor }]}>
       <HeaderTwoIcons leftIcon={true} label={`${forumDetails.title}`} />
       <CurveView style={{ paddingHorizontal: 15, backgroundColor: "#f7f7f7" }}>
        
       <View style={styles.card}>
-        <Image
-        source={{uri:"https://www.myhoardings.com/FAQ/wp-content/uploads/2022/06/mcd-cross-promotion.jpg"}}
+        {
+          adBanners?
+          <Image
+        source={{uri:adBanners.forumBanner}}
         style={{width:'100%',height:150,borderRadius:10}}
         />
+        :
+        null
+        }
       </View>
        
        

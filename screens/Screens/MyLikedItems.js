@@ -37,6 +37,7 @@ function MyLikedItems({ navigation }) {
       updatedFavorites.splice(index, 1);
       await AsyncStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       setFavoriteItems(updatedFavorites);
+      
     } catch (error) {
       console.error("Error removing item from favorites:", error);
     }

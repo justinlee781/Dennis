@@ -30,7 +30,8 @@
     "react-native-screens": "^3.29.0",
     "react-native-select-dropdown": "^3.4.0",
     "react-native-swiper": "^1.6.0",
-    "zustand": "^4.3.8"
+    "zustand": "^4.3.8",
+    "expo-updates": "~0.24.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

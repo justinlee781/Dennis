@@ -4,7 +4,7 @@ import CustomHeader from "../../components/Headers/CustomHeader";
 import Theme from "../../src/Theme";
 import CurveView from "../../components/utils/CurveView";
 import useStore from "../../store";
-import { doc, onSnapshot } from "firebase/firestore"; // Import necessary Firestore functions and objects
+import { doc, getDoc, onSnapshot } from "firebase/firestore"; // Import necessary Firestore functions and objects
 import { dbFS } from "../../config/firebase";
 import Space from "../../components/utils/Space";
 import ForumCategoryCard from "../../components/Cards/ForumCategoryCard";
@@ -59,6 +59,7 @@ const cardData = [
 function ForumsScreen({ navigation }) {
   const userData = useStore((state) => state.userData);
   const setUserData = useStore((state) => state.setUserData);
+  const setAdBanners = useStore((state) => state.setAdBanners);
   const userID = useStore((state) => state.userID);
   const [isGridView, setIsGridView] = useState(true); // State to manage the toggle
 
@@ -76,6 +77,23 @@ function ForumsScreen({ navigation }) {
       return () => unsubscribe(); // Cleanup the subscription when the component unmounts
     }
   }, []);
+
+
+  useEffect(() => {
+    const loadAdBanner = async () => {
+      try {
+        const bannerRef = doc(dbFS, "adBanners", "adBanners");
+        const bannerDoc = await getDoc(bannerRef);
+        const bannerData = bannerDoc.data();
+        setAdBanners(bannerData);
+      } catch (error) {
+        console.error("Error loading ad banner:", error);
+      }
+    };
+
+    loadAdBanner();
+  }, []);
+
 
   if (!userData) {
     return null;

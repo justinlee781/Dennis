@@ -9,6 +9,8 @@ const useStore = create((set) => ({
   setUserData :(data) => set(() => ({ userData: data  })),
   convoData : null,
   setConvoData :(data) => set(() => ({ convoData: data  })),
+  adBanners : null,
+  setAdBanners :(data) => set(() => ({ adBanners: data  })),
   step1Data: {
     fullName: '',
     email: '',

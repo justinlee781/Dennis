@@ -12,7 +12,7 @@ function ProductCard({ img, title, price ,handleImagePress,postDate}) {
 
   function formatTimestamp(timestamp) {
     const currentDate = new Date();
-    const secondsAgo = (currentDate.getTime() - timestamp.toMillis()) / 1000;
+    const secondsAgo = (currentDate.getTime() - timestamp.seconds * 1000) / 1000;
   
     if (secondsAgo < 60) {
       return "Just now";
@@ -33,6 +33,7 @@ function ProductCard({ img, title, price ,handleImagePress,postDate}) {
       return years === 1 ? "1 year ago" : `${years} years ago`;
     }
   }
+  
   
   return (
     <View style={styles.container}>
@@ -64,8 +65,6 @@ export default ProductCard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth:2,
-    borderColor:'#f9f9f9',
     borderRadius:10
   },
   blurContainer: {
