@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "surfapp",
-    "slug": "surfapp",
+    "name": "Duckdive",
+    "slug": "Duckdive",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -31,13 +31,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mxwebdev.Duckdive",
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.mxwebdev.Duckdive",
+      "versionCode": 1,
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
@@ -45,16 +49,16 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "b307ec82-9ae9-4691-9b7e-a75ca943b98b"
-      }
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
+    "extra": {
+      "eas": {
+        "projectId": "434221ef-b9c8-4bff-9f74-44e512cb14cf"
+      }
+    },
     "updates": {
-      "url": "https://u.expo.dev/b307ec82-9ae9-4691-9b7e-a75ca943b98b"
+      "url": "https://u.expo.dev/434221ef-b9c8-4bff-9f74-44e512cb14cf"
     }
   }
 }
