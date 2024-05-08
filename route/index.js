@@ -27,6 +27,7 @@ import ForumsScreen from "../screens/Screens/ForumsScreen";
 import ForumDetails from "../screens/Screens/ForumDetials";
 import CreateForum from "../screens/Screens/CreateForum";
 import ForumInside from "../screens/Screens/ForumInside";
+import TermsConditions from "../screens/Auth/TermsConditions";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -101,6 +102,7 @@ export default function MyStack({ navigation }) {
           <Stack.Screen name="CreatePost" component={CreatePost} />
           <Stack.Screen name="CreateForum" component={CreateForum} />
           <Stack.Screen name="ProductDetail" component={ProductDetail} />
+          <Stack.Screen name="TermsConditions" component={TermsConditions} />
           <Stack.Screen name="MyCart" component={MyCart} />
           <Stack.Screen
             name="HandleCreateListing"

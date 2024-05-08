@@ -101,6 +101,13 @@ function SignupScreen({navigation}){
               onChangeText={(text)=>setcPassword(text)}
             />
            </View>
+           <Space space={15}/>
+           <View style={{flexDirection:'row',alignItems:'center'}}>
+           <Typo s>By Signing up You agree to  </Typo>
+           <TouchableOpacity onPress={()=>navigation.navigate("TermsConditions")}>
+            <Typo style={{textDecorationLine:"underline",color:Theme.primaryColor}}>Terms and Conditions</Typo>
+            </TouchableOpacity>
+           </View>
            <Space space={25}/>
 
             <FullButton

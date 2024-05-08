@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from "react-native";
 import HeaderTwoIcons from "../../components/Headers/HeaderTwoIcons";
 import CurveView from "../../components/utils/CurveView";
 import Theme from "../../src/Theme";
@@ -89,7 +89,16 @@ function ForumDetails({ route,navigation }) {
             )}
           </>
         )}
+   
       </CurveView>
+      <View style={styles.bottom}>
+      <View style={{flexDirection:'row',alignItems:'center'}}>
+           <Typo s>By using our forums you agree to  </Typo>
+           <TouchableOpacity onPress={()=>navigation.navigate("TermsConditions")}>
+            <Typo style={{textDecorationLine:"underline",color:Theme.primaryColor}}>Terms and Conditions</Typo>
+            </TouchableOpacity>
+           </View>
+        </View>
     </View>
   );
 }
@@ -114,4 +123,9 @@ const styles = StyleSheet.create({
   emptyStateText: {
     textAlign: "center",
   },
+  bottom:{
+    paddingHorizontal:20,
+    alignItems:'center',
+    paddingVertical:10
+  }
 });
