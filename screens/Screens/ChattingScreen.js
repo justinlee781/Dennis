@@ -9,6 +9,7 @@ import {
   Image,
   Platform,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to install @expo/vector-icons package
 import Theme from "../../src/Theme";
@@ -24,6 +25,7 @@ import {
 import { dbFS } from "../../config/firebase";
 import useStore from "../../store";
 import Space from "../../components/utils/Space";
+import { useNavigation } from "@react-navigation/native";
 
 function ChattingScreen({ route }) {
   const [message, setMessage] = useState("");
@@ -33,6 +35,7 @@ function ChattingScreen({ route }) {
   const [chatterTempDetial, setChatterTempDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const flatListRef = useRef(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -135,6 +138,38 @@ function ChattingScreen({ route }) {
     ? chatterDetail.fullName
     : chatterTempDetial.fullName;
 
+  const handleRightIconPress = () => {
+    Alert.alert(
+      "Report and Block",
+      "Are you sure you want to report and/or block the user?",
+      [
+        {
+          text: "Report and Block",
+          onPress: () => {
+            handleReportBlock(conversationID);
+          },
+        },
+        { text: "Cancel", style: "cancel" },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const handleReportBlock = async (conversationID) => {
+    try {
+      const docRef = doc(dbFS, "conversations", conversationID);
+
+      await updateDoc(docRef, {
+        convoBlocked: true,
+      });
+      navigation.navigate("MainRoute");
+      Alert.alert("User Blocked", "User has been reported and blocked!");
+      console.log("Conversation has been marked as blocked.");
+    } catch (e) {
+      console.error("Error blocking the conversation:", e);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -143,6 +178,8 @@ function ChattingScreen({ route }) {
         hasBackButton={true}
         image={userImage}
         label={userName}
+        rightIcon={"flag"}
+        rightIconPress={handleRightIconPress}
       />
 
       <View style={styles.CurveView}>
@@ -183,17 +220,23 @@ function ChattingScreen({ route }) {
         </View>
 
         {/* Input box */}
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Type your message..."
-            value={message}
-            onChangeText={(text) => setMessage(text)}
-          />
-          <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-            <Ionicons name="send" size={15} color="white" />
-          </TouchableOpacity>
-        </View>
+        {chatData.convoBlocked ? (
+          <View style={{padding:20,alignItems:'center'}}>
+            <Typo grey>You cannot Reply to this Conversation.</Typo>
+          </View>
+        ) : (
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Type your message..."
+              value={message}
+              onChangeText={(text) => setMessage(text)}
+            />
+            <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+              <Ionicons name="send" size={15} color="white" />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -291,7 +334,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     position: "absolute",
-    zIndex:1
+    zIndex: 1,
   },
 });
 
