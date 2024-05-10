@@ -37,10 +37,12 @@ function ProductCard({ img, title, price ,handleImagePress,postDate}) {
   
   return (
     <View style={styles.container}>
-     <TouchableOpacity onPress={handleImagePress}>
+    {img ? <TouchableOpacity onPress={handleImagePress}>
      <Image source={{ uri: img }} style={{ flex: 1,borderRadius:35,height:178,backgroundColor:'#f8f8f8' }}>
       </Image>
-     </TouchableOpacity>
+     </TouchableOpacity> : 
+      <Image source={{ uri: "https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png" }} style={{ flex: 1,borderRadius:35,height:178,backgroundColor:'#f8f8f8' }}></Image>
+     }
       <View style={styles.blurContainer}>
           <View style={{ flex: 1 }}>
           <Typo style={{textTransform:"capitalize"}} numberOfLines={1} grey s>

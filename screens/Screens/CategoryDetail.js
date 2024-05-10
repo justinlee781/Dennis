@@ -117,7 +117,7 @@ function CategoryDetail({ navigation, route }) {
               <View key={index} style={styles.cardWrapper}>
                 <ProductCard
                   price={doc.adPrice}
-                  img={doc.images[0]}
+                  img={doc.images ? doc.images[0] : null}
                   title={doc.adTitle}
                   postDate={doc.postedDate}
                   brand={doc.brand}
